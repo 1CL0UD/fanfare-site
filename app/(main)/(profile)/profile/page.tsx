@@ -1,9 +1,7 @@
 import { stackServerApp } from '@/stack';
 import { Card, CardContent } from '@/components/ui/card';
-import SignOutButton from '@/components/auth/sign-out';
-import Image from 'next/image';
-import { SettingSidebar } from './sidebar';
 import { AccountSettings } from '@stackframe/stack';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default async function Page() {
   // await ensureOnboarded();
@@ -11,7 +9,13 @@ export default async function Page() {
   return (
     <>
       {user ? (
-        <AccountSettings fullPage />
+        <div className="flex flex-1 p-4">
+          <Card className="flex-1 p-4">
+            <CardContent>
+              <AccountSettings />
+            </CardContent>
+          </Card>
+        </div>
       ) : (
         <div>
           <p>You are not logged in</p>
