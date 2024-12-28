@@ -3,19 +3,26 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Bell, Home, Users, MessageCircle, Menu } from 'lucide-react';
-import { UserButton } from '@stackframe/stack';
+import { UserButton, useUser } from '@stackframe/stack';
+import Image from 'next/image';
 
 const Header = () => {
+  const user = useUser();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <header className="bg-white border-b border-gray-200">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center py-4">
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0">
               <span className="sr-only">SocialApp</span>
-              <div className="h-8 w-8 bg-blue-500 rounded-full"></div>
+              <Image
+                src={'/icon.png'}
+                width={96}
+                height={48}
+                alt="Fanfare Logo"
+              />
             </Link>
             <nav className="hidden md:ml-6 md:flex md:space-x-8">
               <Link
@@ -84,18 +91,14 @@ const Header = () => {
           <div className="pt-4 pb-3 border-t border-gray-200">
             <div className="flex items-center px-4 sm:px-6">
               <div className="flex-shrink-0">
-                <img
-                  className="h-10 w-10 rounded-full"
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                  alt=""
-                />
+                <UserButton />
               </div>
               <div className="ml-3">
                 <div className="text-base font-medium text-gray-800">
-                  Tom Cook
+                  {user?.displayName}
                 </div>
                 <div className="text-sm font-medium text-gray-500">
-                  tom@example.com
+                  {user?.primaryEmail}
                 </div>
               </div>
               <button className="ml-auto flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
