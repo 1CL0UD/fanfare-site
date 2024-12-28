@@ -1,0 +1,3 @@
+interface ServerMetadata {
+  onboarded: boolean;
+}

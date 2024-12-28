@@ -4,6 +4,7 @@ import SignOutButton from '@/components/auth/sign-out';
 import Image from 'next/image';
 
 export default async function Page() {
+  // await ensureOnboarded();
   const user = await stackServerApp.getUser();
   return (
     <div>
