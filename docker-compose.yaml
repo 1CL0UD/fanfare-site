@@ -1,0 +1,7 @@
+services:
+  fanfare-test:
+    image: fanfare-test
+    ports:
+      - '3003:3000'
+    env_file:
+      - .env
