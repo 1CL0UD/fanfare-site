@@ -20,7 +20,6 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { finishOnboarding } from '@/lib/actions/auth/onboarding.actions';
 
 export default function OnboardingPage() {
   const user = useUser();
@@ -44,7 +43,7 @@ export default function OnboardingPage() {
           bio: values.bio,
         },
       });
-      finishOnboarding();
+      // finishOnboarding();
 
       router.push('/');
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
