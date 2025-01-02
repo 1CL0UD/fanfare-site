@@ -8,7 +8,7 @@ jobs:
 
   build:
 
-    runs-on: ubuntu:24.04
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
@@ -26,7 +26,7 @@ jobs:
 
     # Build the Docker image
     - name: Build the Docker image
-      run: docker build . --file prod.Dockerfile --tag shalahuddinabdulaziz/fanfare:${{ env.IMAGE_TAG }}
+      run: docker build . --file Dockerfile --tag shalahuddinabdulaziz/fanfare:${{ env.IMAGE_TAG }}
 
     # Push the Docker image to Docker Hub
     - name: Push the Docker image
