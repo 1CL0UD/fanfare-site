@@ -5,10 +5,14 @@ import Link from 'next/link';
 import { Bell, Home, Users, MessageCircle, Menu } from 'lucide-react';
 import { UserButton, useUser } from '@stackframe/stack';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 const Header = () => {
   const user = useUser();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  const isActive = (href: string) => pathname === href;
 
   return (
     <header className="bg-white border-b border-gray-200">
@@ -27,21 +31,33 @@ const Header = () => {
             <nav className="hidden md:ml-6 md:flex md:space-x-8">
               <Link
                 href="/"
-                className="text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium"
+                className={`text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium ${
+                  isActive('/')
+                    ? 'text-gray-900 border-b-2 border-gray-900 pb-2'
+                    : ''
+                }`}
               >
                 <Home className="h-5 w-5 mr-1" />
                 Home
               </Link>
               <Link
                 href="/network"
-                className="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium"
+                className={`text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium ${
+                  isActive('/network')
+                    ? 'text-gray-900 border-b-2 border-gray-900 pb-2'
+                    : ''
+                }`}
               >
                 <Users className="h-5 w-5 mr-1" />
                 Network
               </Link>
               <Link
                 href="/messages"
-                className="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium"
+                className={`text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium ${
+                  isActive('/messages')
+                    ? 'text-gray-900 border-b-2 border-gray-900 pb-2'
+                    : ''
+                }`}
               >
                 <MessageCircle className="h-5 w-5 mr-1" />
                 Messages
