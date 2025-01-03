@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(cuid())
+  name          String
+  avatarUrl     String?
+  occupation    String?
+  bio           String?
+  location      String?
+  socialLinks   Json?          // JSON field for storing social links
+  projects      Project[]
+
+  @@map("users") // Optional: specify the table name if needed
+}
+
+model Project {
+  id            String         @id @default(cuid())
+  name          String
+  description   String
+  thumbnailUrl  String?
+  userId        String         @map("user_id")
+  
+  user          User           @relation(fields: [userId], references: [id])
+
+  @@map("projects") // Optional: specify the table name if needed
+}
