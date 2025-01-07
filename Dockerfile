@@ -17,9 +17,6 @@ RUN \
   else echo "Lockfile not found." && exit 1; \
   fi
 
-RUN pnpm dlx prisma generate --no-engine
-
-
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
