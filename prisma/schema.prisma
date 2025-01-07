@@ -26,6 +26,7 @@ model Project {
   description   String
   thumbnailUrl  String?
   userId        String         @map("user_id")
+  tags          String[]
   
   user          User           @relation(fields: [userId], references: [id])
 

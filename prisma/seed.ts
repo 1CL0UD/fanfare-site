@@ -21,18 +21,21 @@ async function main() {
           description:
             'A fully responsive online store with real-time inventory management.',
           thumbnailUrl: '/assets/gallery/gallery-6.jpeg',
+          tags: ['web', 'full-stack'],
         },
         {
           name: 'Task Management App',
           description:
             'Collaborative project management tool with real-time updates.',
           thumbnailUrl: '/assets/gallery/gallery-7.jpeg',
+          tags: ['web', 'full-stack'],
         },
         {
           name: 'Social Media Dashboard',
           description:
             'Centralized dashboard for managing multiple social media accounts.',
           thumbnailUrl: '/assets/gallery/gallery-8.jpeg',
+          tags: ['web', 'full-stack'],
         },
       ],
     },
@@ -53,18 +56,21 @@ async function main() {
           description:
             'A mobile application that tracks fitness progress and provides personalized workout plans.',
           thumbnailUrl: '/assets/gallery/gallery-9.jpeg',
+          tags: ['mobile'],
         },
         {
           name: 'Language Learning App',
           description:
             'An interactive language learning application with gamified lessons.',
           thumbnailUrl: '/assets/gallery/gallery-10.jpeg',
+          tags: ['mobile'],
         },
         {
           name: 'Travel Guide App',
           description:
             'A mobile app offering curated travel guides and itinerary planning.',
           thumbnailUrl: '/assets/gallery/gallery-11.jpeg',
+          tags: ['mobile'],
         },
       ],
     },
@@ -85,18 +91,21 @@ async function main() {
           description:
             'A machine learning model to predict customer churn for a subscription service.',
           thumbnailUrl: '/assets/gallery/gallery-12.jpeg',
+          tags: ['data science', 'machine learning'],
         },
         {
           name: 'Sentiment Analysis Tool',
           description:
             'A natural language processing tool to analyze the sentiment of social media posts.',
           thumbnailUrl: '/assets/gallery/gallery-13.jpeg',
+          tags: ['data science', 'machine learning'],
         },
         {
           name: 'Sales Forecasting Model',
           description:
             'A time-series forecasting model to predict future sales based on historical data.',
           thumbnailUrl: '/assets/gallery/gallery-14.jpeg',
+          tags: ['data science', 'machine learning'],
         },
       ],
     },
@@ -117,18 +126,21 @@ async function main() {
           description:
             'A user interface overhaul for a mobile banking application, focusing on accessibility and ease of use.',
           thumbnailUrl: '/assets/gallery/gallery-1.jpeg',
+          tags: ['ui/ux', 'mobile'],
         },
         {
           name: 'E-learning Platform UI',
           description:
             "A redesign of an e-learning platform's user interface with a focus on engaging learners.",
           thumbnailUrl: '/assets/gallery/gallery-2.jpeg',
+          tags: ['ui/ux', 'web'],
         },
         {
           name: 'Personal Website Redesign',
           description:
             'A complete visual and functional revamp of a personal portfolio website.',
           thumbnailUrl: '/assets/gallery/gallery-3.jpeg',
+          tags: ['ui/ux', 'web'],
         },
       ],
     },
@@ -149,18 +161,21 @@ async function main() {
           description:
             'A showcase of my projects using modern JavaScript frameworks.',
           thumbnailUrl: '/assets/gallery/gallery-4.jpeg',
+          tags: ['frontend', 'web'],
         },
         {
           name: 'Interactive Data Visualization',
           description:
             'A dashboard with interactive charts to visualize data sets.',
           thumbnailUrl: '/assets/gallery/gallery-5.jpeg',
+          tags: ['frontend', 'web', 'data visualization'],
         },
         {
           name: 'Landing Page Redesign',
           description:
             'A visually appealing and responsive landing page for a SaaS product.',
           thumbnailUrl: '/assets/gallery/gallery-6.jpeg',
+          tags: ['frontend', 'web'],
         },
       ],
     },
@@ -181,17 +196,20 @@ async function main() {
           description:
             'A comprehensive RESTful API with user authentication and CRUD operations.',
           thumbnailUrl: '/assets/gallery/gallery-7.jpeg',
+          tags: ['backend', 'api'],
         },
         {
           name: 'Data Migration Tool',
           description:
             'A tool to efficiently migrate large datasets between databases.',
           thumbnailUrl: '/assets/gallery/gallery-8.jpeg',
+          tags: ['backend', 'data management'],
         },
         {
           name: 'Real-time Chat Server',
           description: 'A WebSocket-based chat server for real-time messaging.',
           thumbnailUrl: '/assets/gallery/gallery-9.jpeg',
+          tags: ['backend', 'web', 'api'],
         },
       ],
     },
@@ -212,18 +230,21 @@ async function main() {
           description:
             'An automated CI/CD pipeline using Docker and Kubernetes for a microservices architecture.',
           thumbnailUrl: '/assets/gallery/gallery-10.jpeg',
+          tags: ['devops', 'infrastructure'],
         },
         {
           name: 'Infrastructure as Code',
           description:
             'Implementation of infrastructure as code using Terraform for multiple cloud providers.',
           thumbnailUrl: '/assets/gallery/gallery-11.jpeg',
+          tags: ['devops', 'infrastructure'],
         },
         {
           name: 'Monitoring and Logging System',
           description:
             'A centralized monitoring and logging system using Prometheus and Grafana.',
           thumbnailUrl: '/assets/gallery/gallery-12.jpeg',
+          tags: ['devops', 'infrastructure'],
         },
       ],
     },
@@ -244,18 +265,21 @@ async function main() {
           description:
             'Led the product development and launch of a major new feature for a mobile application.',
           thumbnailUrl: '/assets/gallery/gallery-13.jpeg',
+          tags: ['product management', 'mobile'],
         },
         {
           name: 'Website Redesign Project',
           description:
             'Managed a complete website redesign project resulting in improved user engagement.',
           thumbnailUrl: '/assets/gallery/gallery-14.jpeg',
+          tags: ['product management', 'web'],
         },
         {
           name: 'New Product Strategy',
           description:
             'Developed the product strategy for a new SaaS platform, including market research and competitive analysis.',
           thumbnailUrl: '/assets/gallery/gallery-1.jpeg',
+          tags: ['product management', 'strategy'],
         },
       ],
     },
@@ -276,18 +300,21 @@ async function main() {
           description:
             'Designed a microservices architecture for a large-scale e-commerce platform.',
           thumbnailUrl: '/assets/gallery/gallery-2.jpeg',
+          tags: ['architecture', 'backend'],
         },
         {
           name: 'Database Migration Strategy',
           description:
             'Developed a strategy for migrating a monolithic database to a distributed system.',
           thumbnailUrl: '/assets/gallery/gallery-3.jpeg',
+          tags: ['architecture', 'backend', 'data management'],
         },
         {
           name: 'System Performance Optimization',
           description:
             'Led a team to optimize the performance of a high-traffic web application.',
           thumbnailUrl: '/assets/gallery/gallery-4.jpeg',
+          tags: ['architecture', 'web'],
         },
       ],
     },
