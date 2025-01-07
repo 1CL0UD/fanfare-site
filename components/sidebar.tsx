@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/select';
 
 interface SidebarProps {
-  occupations: string[];
+  occupations: (string | null)[];
   selectedOccupation: string | null;
   setSelectedOccupation: (occupation: string | null) => void;
   sortBy: 'name' | 'projectCount';
@@ -43,8 +43,11 @@ export default function Sidebar({
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Occupations</SelectItem>
-              {occupations.map((occupation) => (
-                <SelectItem key={occupation} value={occupation}>
+              {occupations?.map((occupation) => (
+                <SelectItem
+                  key={occupation}
+                  value={occupation ? occupation : ''}
+                >
                   {occupation}
                 </SelectItem>
               ))}

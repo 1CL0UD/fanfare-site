@@ -1,22 +1,39 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { UserCircle } from 'lucide-react';
 import Sidebar from '@/components/sidebar';
+import { Project } from '@prisma/client';
+import { getUserWithProjects } from '@/lib/actions/user.actions';
+import { UsersWithProjects } from '@/lib/types';
+import Image from 'next/image';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function CommunityShowcase() {
-  const [users, setUsers] = useState(initialUsers);
+  useEffect(() => {
+    const fetch = async () => {
+      const data = await getUserWithProjects();
+      setUsers(data);
+    };
+    try {
+      fetch();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  }, []);
+  const [users, setUsers] = useState<UsersWithProjects[]>();
   const [selectedOccupation, setSelectedOccupation] = useState<string | null>(
     null
   );
   const [sortBy, setSortBy] = useState<'name' | 'projectCount'>('name');
 
   const filteredUsers = selectedOccupation
-    ? users.filter((user) => user.occupation === selectedOccupation)
-    : users;
+    ? users?.filter((user) => user.occupation === selectedOccupation) || []
+    : users || [];
 
   const sortedUsers = [...filteredUsers].sort((a, b) => {
     if (sortBy === 'name') {
@@ -26,7 +43,9 @@ export default function CommunityShowcase() {
     }
   });
 
-  const occupations = Array.from(new Set(users.map((user) => user.occupation)));
+  const occupations = Array.from(
+    new Set(users?.map((user) => user.occupation))
+  );
 
   return (
     <div className="container mx-auto px-4 py-8 flex flex-col md:flex-row gap-8">
@@ -42,35 +61,56 @@ export default function CommunityShowcase() {
           Get To Know Them!
         </h1>
         <div className="space-y-6">
-          {sortedUsers.map((user) => (
-            <UserRow key={user.id} user={user} />
-          ))}
+          {!users ? (
+            <>
+              {[...Array(3)].map((_, index) => (
+                <Card key={index} className="overflow-hidden">
+                  <CardContent className="p-6">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                      <Skeleton className="h-16 w-16 rounded-full" />
+                      <div className="flex-grow">
+                        <Skeleton className="h-6 w-48 mb-2" />
+                        <Skeleton className="h-4 w-32" />
+                      </div>
+                    </div>
+                    <div className="mt-4">
+                      <Skeleton className="h-6 w-24 mb-2" />
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                        {[...Array(3)].map((_, index) => (
+                          <Skeleton
+                            key={index}
+                            className="h-36 w-full rounded"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </>
+          ) : (
+            <>
+              {sortedUsers.map((user) => (
+                <UserRow key={user.id} user={user} />
+              ))}
+            </>
+          )}
         </div>
       </main>
     </div>
   );
 }
 
-interface Project {
-  name: string;
-  thumbnailUrl: string;
-}
-
-interface User {
-  id: string;
-  name: string;
-  avatarUrl: string;
-  occupation: string;
-  projects: Project[];
-}
-
-function UserRow({ user }: { user: User }) {
+function UserRow({ user }: { user: UsersWithProjects }) {
   return (
     <Card className="overflow-hidden">
       <CardContent className="p-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <Avatar className="h-16 w-16">
-            <AvatarImage src={user.avatarUrl} alt={user.name} />
+            <AvatarImage
+              src={user.avatarUrl ? user.avatarUrl : ''}
+              alt={user.name}
+            />
             <AvatarFallback>
               <UserCircle className="h-8 w-8" />
             </AvatarFallback>
@@ -96,11 +136,15 @@ function UserRow({ user }: { user: User }) {
 function ProjectThumbnail({ project }: { project: Project }) {
   return (
     <div className="relative group">
-      <img
-        src={project.thumbnailUrl}
-        alt={project.name}
-        className="w-full h-32 object-cover rounded-md"
-      />
+      <div className="relative w-full h-32">
+        <Image
+          src={project.thumbnailUrl || ''}
+          alt={project.name}
+          fill
+          style={{ objectFit: 'cover', borderRadius: '0.375rem' }}
+          className="rounded-md"
+        />
+      </div>
       <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
         <Badge variant="secondary" className="text-xs">
           {project.name}
@@ -109,118 +153,3 @@ function ProjectThumbnail({ project }: { project: Project }) {
     </div>
   );
 }
-
-const initialUsers = [
-  {
-    id: '1',
-    name: 'Alice Johnson',
-    avatarUrl: '/placeholder.svg?height=200&width=200',
-    occupation: 'Full-stack Developer',
-    projects: [
-      {
-        name: 'E-commerce Platform',
-        thumbnailUrl: '/assets/gallery/gallery-6.jpeg',
-      },
-      {
-        name: 'Task Management App',
-        thumbnailUrl: '/assets/gallery/gallery-7.jpeg',
-      },
-      {
-        name: 'Social Media Dashboard',
-        thumbnailUrl: '/assets/gallery/gallery-8.jpeg',
-      },
-    ],
-  },
-  {
-    id: '2',
-    name: 'Bob Smith',
-    avatarUrl: '/placeholder.svg?height=200&width=200',
-    occupation: 'UI/UX Designer',
-    projects: [
-      {
-        name: 'Travel App Design',
-        thumbnailUrl: '/assets/gallery/gallery-9.jpeg',
-      },
-      {
-        name: 'Fitness Tracker UI',
-        thumbnailUrl: '/assets/gallery/gallery-10.jpeg',
-      },
-      {
-        name: 'E-learning Platform',
-        thumbnailUrl: '/assets/gallery/gallery-11.jpeg',
-      },
-    ],
-  },
-  {
-    id: '3',
-    name: 'Charlie Brown',
-    avatarUrl: '/placeholder.svg?height=200&width=200',
-    occupation: 'Machine Learning Engineer',
-    projects: [
-      {
-        name: 'Sentiment Analysis Tool',
-        thumbnailUrl: '/assets/gallery/gallery-12.jpeg',
-      },
-      {
-        name: 'Chatbot Framework',
-        thumbnailUrl: '/assets/gallery/gallery-13.jpeg',
-      },
-    ],
-  },
-  {
-    id: '4',
-    name: 'Diana Martinez',
-    avatarUrl: '/placeholder.svg?height=200&width=200',
-    occupation: 'Mobile App Developer',
-    projects: [
-      {
-        name: 'Food Delivery App',
-        thumbnailUrl: '/assets/gallery/gallery-14.jpeg',
-      },
-      {
-        name: 'Meditation Timer',
-        thumbnailUrl: '/assets/gallery/gallery-15.jpeg',
-      },
-      {
-        name: 'Language Learning Game',
-        thumbnailUrl: '/assets/gallery/gallery-16.jpeg',
-      },
-    ],
-  },
-  {
-    id: '5',
-    name: 'Ethan Williams',
-    avatarUrl: '/placeholder.svg?height=200&width=200',
-    occupation: 'Data Scientist',
-    projects: [
-      {
-        name: 'Predictive Analytics Dashboard',
-        thumbnailUrl: '/assets/gallery/gallery-17.jpeg',
-      },
-      {
-        name: 'Customer Segmentation Model',
-        thumbnailUrl: '/assets/gallery/gallery-18.jpeg',
-      },
-    ],
-  },
-  {
-    id: '6',
-    name: 'Fiona Chen',
-    avatarUrl: '/placeholder.svg?height=200&width=200',
-    occupation: 'Full-stack Developer',
-    projects: [
-      {
-        name: 'Real-time Collaboration Tool',
-        thumbnailUrl: '/assets/gallery/gallery-19.jpeg',
-      },
-      {
-        name: 'Inventory Management System',
-        thumbnailUrl: '/assets/gallery/gallery-20.jpeg',
-      },
-      {
-        name: 'Online Booking Platform',
-        thumbnailUrl: '/assets/gallery/gallery-21.jpeg',
-      },
-    ],
-  },
-];
