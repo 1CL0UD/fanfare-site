@@ -1,6 +1,6 @@
 services:
   fanfare-test:
-    image: fanfare-test
+    image: shalahuddinabdulaziz/fanfare
     ports:
       - '3003:3000'
     env_file:
