@@ -22,6 +22,10 @@ FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+# Ensure Corepack is enabled
+RUN corepack enable pnpm
+
+# Generate Prisma client
 RUN pnpm dlx prisma generate --no-engine
 
 # Next.js collects completely anonymous telemetry data about general usage.
@@ -30,12 +34,12 @@ RUN pnpm dlx prisma generate --no-engine
 # ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN \
-  --mount=type=secret,id=NEXT_PUBLIC_STACK_PROJECT_ID \
-  --mount=type=secret,id=NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY \
-  --mount=type=secret,id=STACK_SECRET_SERVER_KEY \
-  export NEXT_PUBLIC_STACK_PROJECT_ID=$(cat /run/secrets/NEXT_PUBLIC_STACK_PROJECT_ID) && \
-  export NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY=$(cat /run/secrets/NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY) && \
-  export STACK_SECRET_SERVER_KEY=$(cat /run/secrets/STACK_SECRET_SERVER_KEY) && \
+  # --mount=type=secret,id=NEXT_PUBLIC_STACK_PROJECT_ID \
+  # --mount=type=secret,id=NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY \
+  # --mount=type=secret,id=STACK_SECRET_SERVER_KEY \
+  # export NEXT_PUBLIC_STACK_PROJECT_ID=$(cat /run/secrets/NEXT_PUBLIC_STACK_PROJECT_ID) && \
+  # export NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY=$(cat /run/secrets/NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY) && \
+  # export STACK_SECRET_SERVER_KEY=$(cat /run/secrets/STACK_SECRET_SERVER_KEY) && \
   if [ -f yarn.lock ]; then yarn run build; \
   elif [ -f package-lock.json ]; then npm run build; \
   elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
