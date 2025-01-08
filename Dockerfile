@@ -44,7 +44,6 @@ RUN \
   export STACK_SECRET_SERVER_KEY=$(cat /run/secrets/STACK_SECRET_SERVER_KEY) && \
   export DATABASE_URL=$(cat /run/secrets/DATABASE_URL) && \
   export PULSE_API_KEY=$(cat /run/secrets/PULSE_API_KEY) && \
-
   if [ -f yarn.lock ]; then yarn run build; \
   elif [ -f package-lock.json ]; then npm run build; \
   elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
