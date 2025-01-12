@@ -53,7 +53,7 @@ export default async function Page() {
           </Card>
           <Card className="flex-1 p-4">
             <CardContent>
-              <AccountSettings />
+              <AccountSettings fullPage={true} />
             </CardContent>
           </Card>
         </div>
