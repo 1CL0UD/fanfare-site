@@ -2,10 +2,19 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Bell, Home, Users, MessageCircle, Menu } from 'lucide-react';
+import {
+  Bell,
+  Home,
+  Users,
+  MessageCircle,
+  Menu,
+  Sun,
+  Moon,
+} from 'lucide-react';
 import { UserButton, useUser } from '@stackframe/stack';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { useTheme } from 'next-themes';
 
 const Header = () => {
   const user = useUser();
@@ -13,6 +22,8 @@ const Header = () => {
   const pathname = usePathname();
 
   const isActive = (href: string) => pathname === href;
+
+  const { setTheme } = useTheme();
 
   return (
     <header className="bg-white border-b border-gray-200">
@@ -69,7 +80,24 @@ const Header = () => {
               <span className="sr-only">View notifications</span>
               <Bell className="h-6 w-6" />
             </button>
-            <UserButton />
+            <UserButton
+              extraItems={[
+                {
+                  text: 'Light Mode',
+
+                  icon: <Sun />,
+
+                  onClick: () => setTheme('light'),
+                },
+                {
+                  text: 'Dark mode',
+
+                  icon: <Moon />,
+
+                  onClick: () => setTheme('dark'),
+                },
+              ]}
+            />
           </div>
           <div className="flex md:hidden">
             <button
@@ -107,7 +135,24 @@ const Header = () => {
           <div className="pt-4 pb-3 border-t border-gray-200">
             <div className="flex items-center px-4 sm:px-6">
               <div className="flex-shrink-0">
-                <UserButton />
+                <UserButton
+                  extraItems={[
+                    {
+                      text: 'Light Mode',
+
+                      icon: <Sun />,
+
+                      onClick: () => setTheme('light'),
+                    },
+                    {
+                      text: 'Dark mode',
+
+                      icon: <Moon />,
+
+                      onClick: () => setTheme('dark'),
+                    },
+                  ]}
+                />
               </div>
               <div className="ml-3">
                 <div className="text-base font-medium text-gray-800">

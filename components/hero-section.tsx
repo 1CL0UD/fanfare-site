@@ -9,7 +9,7 @@ const HeroSection = () => {
       <Image
         src="/assets/hero-background.jpg"
         alt="Hero background"
-        layout="fill"
+        fill
         objectFit="cover"
         className="absolute z-0"
         priority
