@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -11,6 +11,7 @@ import { getUserWithProjects } from '@/lib/actions/user.actions';
 import { UsersWithProjects } from '@/lib/types';
 import Image from 'next/image';
 import { Skeleton } from '@/components/ui/skeleton';
+import Loading from './loading';
 
 export default function CommunityShowcase() {
   useEffect(() => {
@@ -60,42 +61,44 @@ export default function CommunityShowcase() {
         <h1 className="text-3xl font-bold mb-8 text-center md:text-left">
           Get To Know Them!
         </h1>
-        <div className="space-y-6">
-          {!users ? (
-            <>
-              {[...Array(3)].map((_, index) => (
-                <Card key={index} className="overflow-hidden">
-                  <CardContent className="p-6">
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                      <Skeleton className="h-16 w-16 rounded-full" />
-                      <div className="flex-grow">
-                        <Skeleton className="h-6 w-48 mb-2" />
-                        <Skeleton className="h-4 w-32" />
+        <Suspense fallback={<Loading />}>
+          <div className="space-y-6">
+            {!users ? (
+              <>
+                {[...Array(3)].map((_, index) => (
+                  <Card key={index} className="overflow-hidden">
+                    <CardContent className="p-6">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                        <Skeleton className="h-16 w-16 rounded-full" />
+                        <div className="flex-grow">
+                          <Skeleton className="h-6 w-48 mb-2" />
+                          <Skeleton className="h-4 w-32" />
+                        </div>
                       </div>
-                    </div>
-                    <div className="mt-4">
-                      <Skeleton className="h-6 w-24 mb-2" />
-                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                        {[...Array(3)].map((_, index) => (
-                          <Skeleton
-                            key={index}
-                            className="h-36 w-full rounded"
-                          />
-                        ))}
+                      <div className="mt-4">
+                        <Skeleton className="h-6 w-24 mb-2" />
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                          {[...Array(3)].map((_, index) => (
+                            <Skeleton
+                              key={index}
+                              className="h-36 w-full rounded"
+                            />
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </>
-          ) : (
-            <>
-              {sortedUsers.map((user) => (
-                <UserRow key={user.id} user={user} />
-              ))}
-            </>
-          )}
-        </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </>
+            ) : (
+              <>
+                {sortedUsers.map((user) => (
+                  <UserRow key={user.id} user={user} />
+                ))}
+              </>
+            )}
+          </div>
+        </Suspense>
       </main>
     </div>
   );

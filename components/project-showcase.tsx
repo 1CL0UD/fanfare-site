@@ -1,15 +1,15 @@
 import { normalizeTags } from '@/lib/utils';
 import { Project } from '@prisma/client';
 import Image from 'next/image';
+import { Suspense } from 'react';
 
 interface Props {
   projects: Project[];
 }
 
 const ProjectCard = ({ project }: { project: Project }) => {
-  const tags = project.tags;
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition duration-300 transform hover:scale-105">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition duration-300 transform hover:scale-[1.02]">
       <Image
         src={project.thumbnailUrl ? project.thumbnailUrl : ''}
         alt={project.name}
@@ -45,9 +45,22 @@ const ProjectShowcase = ({ projects }: Props) => {
           Featured Projects
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
+          <Suspense
+            fallback={
+              <>
+                {[...Array(3)].map((_, index) => (
+                  <div
+                    key={index}
+                    className="h-64 bg-slate-200 rounded-lg"
+                  ></div>
+                ))}
+              </>
+            }
+          >
+            {projects.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </Suspense>
         </div>
       </div>
     </section>

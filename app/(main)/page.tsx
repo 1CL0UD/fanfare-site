@@ -4,16 +4,20 @@ import GallerySection from '@/components/gallery-section';
 import HeroSection from '@/components/hero-section';
 import ProjectShowcase from '@/components/project-showcase';
 import { getFeaturedProjects } from '@/lib/actions/project.actions';
+import { Suspense } from 'react';
+import Loading from './loading';
 
 export default async function Page() {
   const projects = await getFeaturedProjects();
   return (
-    <main>
-      <HeroSection />
+    <div>
+      <Suspense fallback={<Loading />}>
+        <HeroSection />
+      </Suspense>
       <ProjectShowcase projects={projects} />
       <AboutSection />
       <GallerySection />
       <ContactForm />
-    </main>
+    </div>
   );
 }
