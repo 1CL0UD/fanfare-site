@@ -6,7 +6,5 @@ default:
 
 build_image:
   stage: build
-  tags:
-    - docker-runner
   script:
     - docker build -t dashboard-profiling -f docker/development/Dockerfile .
